@@ -1,7 +1,6 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
 import request from 'superagent'
-import { HashRouter as Router, Link } from 'react-router-dom'
 
 const CLOUDINARY_UPLOAD_PRESET = 'm7lw5icy'
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/hpyyiawap/image/upload'
@@ -62,31 +61,29 @@ class Register extends React.Component {
             <label>Phone Number: </label><input type='text' name='phone' />
             <label>Password: </label><input type='password' name='hash' />
             <label>Profile Picture</label><input type='text' name='user_image_url' readOnly='readonly' value={this.state.uploadedFileCloudinaryUrl} /><br />
+
             <div className='imageButtonAndDisplay'>
               <Dropzone className='dropzone'
                 onDrop={this.onImageDrop.bind(this)}
                 multiple={false}
                 accept='image/*'>
-                <div className='uploadButton'>Drop an image or click to select a file to upload.</div>
+                <div className='uploadButton'>
+                  Drop an image or click to select a file to upload.
+                </div>
               </Dropzone>
 
               <div className='imageContainer'>
-                {
-                      this.state.uploadedFileCloudinaryUrl === ''
-                        ? null
-                        : (
-                          <div>
-                            <img className='uploadImage' src={this.state.uploadedFileCloudinaryUrl} />
-                          </div>
-                        )
-                      }
+                { this.state.uploadedFileCloudinaryUrl === ''
+                ? null
+                : (
+                  <div>
+                    <img className='uploadImage' src={this.state.uploadedFileCloudinaryUrl} />
+                  </div>
+                  )
+                }
               </div>
             </div>
-            <Router>
-              <Link to='/login'>
-                <input type='submit' className='itemListingSubmit' value='Register' />
-              </Link>
-            </Router>
+            <input type='submit' className='itemListingSubmit' value='Register' />
           </form>
         </div>
       </div>
@@ -95,7 +92,6 @@ class Register extends React.Component {
 }
 
 function registerNewUser (event) {
-  console.log(event)
   event.preventDefault(event)
   var formData = {
     fname: event.target.elements.fname.value,

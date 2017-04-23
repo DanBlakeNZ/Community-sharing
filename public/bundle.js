@@ -24779,7 +24779,7 @@
 	
 	// This implementation is based heavily on node's url.parse
 	var resolvePathname = function resolvePathname(to) {
-	  var from = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
+	  var from = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 	
 	  var toParts = to && to.split('/') || [];
 	  var fromParts = from && from.split('/') || [];
@@ -24856,13 +24856,9 @@
 	
 	  if (a == null || b == null) return false;
 	
-	  if (Array.isArray(a)) {
-	    if (!Array.isArray(b) || a.length !== b.length) return false;
-	
-	    return a.every(function (item, index) {
-	      return valueEqual(item, b[index]);
-	    });
-	  }
+	  if (Array.isArray(a)) return Array.isArray(b) && a.length === b.length && a.every(function (item, index) {
+	    return valueEqual(item, b[index]);
+	  });
 	
 	  var aType = typeof a === 'undefined' ? 'undefined' : _typeof(a);
 	  var bType = typeof b === 'undefined' ? 'undefined' : _typeof(b);
@@ -27838,7 +27834,7 @@
 	
 	function submitUser(ev, props) {
 	  ev.preventDefault(ev);
-	  props.dispatch((0, _actions.fetchUser)(document.getElementById('email-input').value));
+	  props.dispatch((0, _actions.loginUser)(document.getElementById('email-input').value));
 	}
 
 /***/ }),
@@ -27850,7 +27846,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.borrowRequest = exports.updateListing = exports.searchForItem = exports.listNewItem = exports.fetchBorrowerById = exports.borrowerDetails = exports.fetchLenderById = exports.lenderDetails = exports.fetchSingleItem = exports.singleItemOrder = exports.fetchLoanedItems = exports.loanedItems = exports.fetchBorrowedItems = exports.borrowedItems = exports.fetchUser = exports.loggedInUser = exports.displaySingleItem = exports.filteredListings = exports.initialListings = exports.dashboardTab = exports.menuVisable = exports.menuNavigation = undefined;
+	exports.borrowRequest = exports.updateListing = exports.searchForItem = exports.listNewItem = exports.fetchBorrowerById = exports.borrowerDetails = exports.fetchLenderById = exports.lenderDetails = exports.fetchSingleItem = exports.singleItemOrder = exports.fetchLoanedItems = exports.loanedItems = exports.fetchBorrowedItems = exports.borrowedItems = exports.loginUser = exports.loggedInUser = exports.displaySingleItem = exports.filteredListings = exports.initialListings = exports.dashboardTab = exports.menuVisable = exports.menuNavigation = undefined;
 	
 	var _superagent = __webpack_require__(267);
 	
@@ -27925,7 +27921,7 @@
 	  };
 	};
 	
-	var fetchUser = exports.fetchUser = function fetchUser(submitedEmail) {
+	var loginUser = exports.loginUser = function loginUser(submitedEmail) {
 	  return function (dispatch) {
 	    _superagent2.default.get(urlPath + '/user/' + submitedEmail).end(function (err, res) {
 	      if (err) {
@@ -27934,6 +27930,7 @@
 	      }
 	      dispatch(loggedInUser(res.body[0]));
 	      dispatch(fetchLoanedItems(res.body[0].user_id));
+	      dispatch(fetchBorrowedItems(res.body[0].user_id));
 	    });
 	  };
 	};
@@ -31746,8 +31743,6 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _reactRouterDom = __webpack_require__(228);
-	
 	var _api = __webpack_require__(324);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -31909,15 +31904,7 @@
 	                )
 	              )
 	            ),
-	            _react2.default.createElement(
-	              _reactRouterDom.HashRouter,
-	              null,
-	              _react2.default.createElement(
-	                _reactRouterDom.Link,
-	                { to: '/login' },
-	                _react2.default.createElement('input', { type: 'submit', className: 'itemListingSubmit', value: 'Register' })
-	              )
-	            )
+	            _react2.default.createElement('input', { type: 'submit', className: 'itemListingSubmit', value: 'Register' })
 	          )
 	        )
 	      );
@@ -31928,7 +31915,6 @@
 	}(_react2.default.Component);
 	
 	function registerNewUser(event) {
-	  console.log(event);
 	  event.preventDefault(event);
 	  var formData = {
 	    fname: event.target.elements.fname.value,
