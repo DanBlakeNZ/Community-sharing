@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { fetchUser } from '../actions'
+import { loginUser } from '../actions'
 
 let Login = (props) => (
   <div className='login'>
@@ -34,5 +34,5 @@ export default connect(mapStateToProps)(Login)
 
 function submitUser (ev, props) {
   ev.preventDefault(ev)
-  props.dispatch(fetchUser(document.getElementById('email-input').value))
+  props.dispatch(loginUser(document.getElementById('email-input').value))
 }

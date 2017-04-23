@@ -66,7 +66,7 @@ export const loggedInUser = loggedInUserDetails => {
   }
 }
 
-export const fetchUser = submitedEmail => {
+export const loginUser = submitedEmail => {
   return dispatch => {
     request.get(urlPath + '/user/' + submitedEmail).end((err, res) => {
       if (err) {
@@ -75,6 +75,7 @@ export const fetchUser = submitedEmail => {
       }
       dispatch(loggedInUser(res.body[0]))
       dispatch(fetchLoanedItems(res.body[0].user_id))
+      dispatch(fetchBorrowedItems(res.body[0].user_id))
     })
   }
 }
