@@ -3,22 +3,26 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 class LoginWelcome extends React.Component {
+
   render () {
     return (
       <div className='login-welcome-container'>
+        <img src='http://res.cloudinary.com/hpyyiawap/image/upload/v1492507853/community_bxaesr.png' />
 
-        <p>Welcome, you are now logged in and are able to lend and share items with other in your community.</p>
+        <h3>Welcome {this.props.loggedInUserDetails.fname}</h3>
+
+        <p>You are now logged in and are now able to lend and share items with others in your community!</p>
         <br />
         <Link to='/lender-form'>
-          Lend an Item
+          <button>Lend an Item</button>
         </Link>
         <br />
         <Link to='/list-all'>
-          Borrow and Item
+          <button>Borrow and Item</button>
         </Link>
         <br />
         <Link to='/dashboard'>
-          Your Dashboard
+          <button>Your Dashboard</button>
         </Link>
       </div>
     )
