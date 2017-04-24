@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { loginUser } from '../actions'
 
 let Login = (props) => (
+
   <div className='login'>
     <img src='http://res.cloudinary.com/hpyyiawap/image/upload/v1492507853/community_bxaesr.png' />
     <div className='LoginGreeting'>
@@ -23,13 +24,24 @@ let Login = (props) => (
   </div>
 )
 
+
+
+
+
+
 function mapStateToProps (state) {
   return {
-    dispatch: state.dispatch
+    dispatch: state.dispatch,
+    loginFailed: state.loginFailed,
+    isLoggedIn: state.isLoggedIn
   }
 }
 
 export default connect(mapStateToProps)(Login)
+
+
+
+
 
 function submitUser (ev, props) {
   ev.preventDefault(ev)
@@ -50,10 +62,16 @@ function submitUser (ev, props) {
   validEmail && enteredPassword ? props.dispatch(loginUser(document.getElementById('email-input').value)) : ''
 }
 
+
+
+
 function validateEmail (email) {
     var regularExpression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return regularExpression.test(email)
 }
+
+
+
 
 function checkPassword (password) {
   if (password === '') {

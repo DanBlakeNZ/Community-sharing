@@ -23711,6 +23711,14 @@
 	
 	var _menuVisableState2 = _interopRequireDefault(_menuVisableState);
 	
+	var _isLoggedIn = __webpack_require__(343);
+	
+	var _isLoggedIn2 = _interopRequireDefault(_isLoggedIn);
+	
+	var _loginFailed = __webpack_require__(344);
+	
+	var _loginFailed2 = _interopRequireDefault(_loginFailed);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = (0, _redux.combineReducers)({
@@ -23725,7 +23733,9 @@
 	  borrowedItemsState: _borrowedItemsState2.default,
 	  lenderDetails: _lenderDetails2.default,
 	  borrowerDetails: _borrowerDetails2.default,
-	  menuVisableState: _menuVisableState2.default
+	  menuVisableState: _menuVisableState2.default,
+	  isLoggedIn: _isLoggedIn2.default,
+	  loginFailed: _loginFailed2.default
 	});
 
 /***/ }),
@@ -27822,7 +27832,9 @@
 	
 	function mapStateToProps(state) {
 	  return {
-	    dispatch: state.dispatch
+	    dispatch: state.dispatch,
+	    loginFailed: state.loginFailed,
+	    isLoggedIn: state.isLoggedIn
 	  };
 	}
 	
@@ -27870,7 +27882,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.borrowRequest = exports.updateListing = exports.searchForItem = exports.listNewItem = exports.fetchBorrowerById = exports.borrowerDetails = exports.fetchLenderById = exports.lenderDetails = exports.fetchSingleItem = exports.singleItemOrder = exports.fetchLoanedItems = exports.loanedItems = exports.fetchBorrowedItems = exports.borrowedItems = exports.loginUser = exports.loggedInUser = exports.displaySingleItem = exports.filteredListings = exports.initialListings = exports.dashboardTab = exports.menuVisable = exports.menuNavigation = undefined;
+	exports.borrowRequest = exports.updateListing = exports.searchForItem = exports.listNewItem = exports.fetchBorrowerById = exports.borrowerDetails = exports.fetchLenderById = exports.lenderDetails = exports.fetchSingleItem = exports.singleItemOrder = exports.fetchLoanedItems = exports.loanedItems = exports.fetchBorrowedItems = exports.borrowedItems = exports.loginUser = exports.loginFailed = exports.userLoggedIn = exports.loggedInUser = exports.displaySingleItem = exports.filteredListings = exports.initialListings = exports.dashboardTab = exports.menuVisable = exports.menuNavigation = undefined;
 	
 	var _superagent = __webpack_require__(267);
 	
@@ -27945,16 +27957,36 @@
 	  };
 	};
 	
+	var userLoggedIn = exports.userLoggedIn = function userLoggedIn(isLoggedIn) {
+	  return {
+	    type: 'USER_LOGGED_IN',
+	    isLoggedIn: isLoggedIn
+	  };
+	};
+	
+	var loginFailed = exports.loginFailed = function loginFailed(_loginFailed) {
+	  return {
+	    type: 'LOGIN_FAILED',
+	    loginFailed: _loginFailed
+	  };
+	};
+	
 	var loginUser = exports.loginUser = function loginUser(submitedEmail) {
 	  return function (dispatch) {
 	    _superagent2.default.get(urlPath + '/user/' + submitedEmail).end(function (err, res) {
-	      if (err) {
-	        console.error('fetchUser ' + err.message);
+	      console.log(res.body[0]);
+	      if (res.body[0] === undefined) {
+	        dispatch(loginFailed(true));
+	        console.log('user not logged in. error');
 	        return;
+	      } else {
+	        console.log('user logged in');
+	        dispatch(loginFailed(false));
+	        dispatch(userLoggedIn(true));
+	        dispatch(loggedInUser(res.body[0]));
+	        dispatch(fetchLoanedItems(res.body[0].user_id));
+	        dispatch(fetchBorrowedItems(res.body[0].user_id));
 	      }
-	      dispatch(loggedInUser(res.body[0]));
-	      dispatch(fetchLoanedItems(res.body[0].user_id));
-	      dispatch(fetchBorrowedItems(res.body[0].user_id));
 	    });
 	  };
 	};
@@ -38919,6 +38951,54 @@
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(MyLoanedDetails);
+
+/***/ }),
+/* 343 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var isLoggedIn = function isLoggedIn() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case 'USER_LOGGED_IN':
+	      return action.isLoggedIn;
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = isLoggedIn;
+
+/***/ }),
+/* 344 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var loginFailed = function loginFailed() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case 'LOGIN_FAILED':
+	      return action.loginFailed;
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = loginFailed;
 
 /***/ })
 /******/ ]);
