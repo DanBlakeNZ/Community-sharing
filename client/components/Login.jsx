@@ -12,10 +12,9 @@ let Login = (props) => (
     </div>
     <form>
       <label>Email</label><br /><input id='email-input' type='text' name='email' placeholder='example@email.com' /><br />
-      <label>Password</label><br /><input type='password' name='password' />
-      <Link to='/dashboard'>
+      <label>Password</label><br /><input id='password-input' type='password' name='password' />
+        <p id='login-error-message'></p>
         <button type='button' value='Login' onClick={() => submitUser(event, props)} >Login</button>
-      </Link>
     </form>
     <p>No account?</p>
     <Link to='/register' className='registerLink'>
@@ -34,5 +33,32 @@ export default connect(mapStateToProps)(Login)
 
 function submitUser (ev, props) {
   ev.preventDefault(ev)
-  props.dispatch(loginUser(document.getElementById('email-input').value))
+
+  document.getElementById('login-error-message').innerHTML = ''
+
+  var validEmail = validateEmail(document.getElementById('email-input').value)
+  var enteredPassword = checkPassword(document.getElementById('password-input').value)
+
+  if (validEmail === false) {
+    document.getElementById('login-error-message').innerHTML = 'The entered email is invalid, please try again.'
+  }
+
+  if ((validEmail === true) && (enteredPassword === false)) {
+    document.getElementById('login-error-message').innerHTML = 'Please enter a password'
+  }
+
+  validEmail && enteredPassword ? props.dispatch(loginUser(document.getElementById('email-input').value)) : ''
+}
+
+function validateEmail (email) {
+    var regularExpression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return regularExpression.test(email)
+}
+
+function checkPassword (password) {
+  if (password === '') {
+    return false
+  } else {
+    return true
+  }
 }

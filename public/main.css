@@ -565,6 +565,10 @@ login-button-container {
   background-color: #21D084;
 }
 
+#login-error-message{
+  color: red;
+}
+
 /* --- REGISTER ---- */
 
 .register {
