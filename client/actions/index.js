@@ -83,13 +83,10 @@ export const loginFailed = loginFailed => {
 export const loginUser = submitedEmail => {
   return dispatch => {
     request.get(urlPath + '/user/' + submitedEmail).end((err, res) => {
-      console.log(res.body[0])
       if (res.body[0] === undefined) {
         dispatch(loginFailed(true))
-        console.log('user not logged in. error');
         return
       } else {
-        console.log('user logged in');
         dispatch(loginFailed(false))
         dispatch(userLoggedIn(true))
         dispatch(loggedInUser(res.body[0]))
