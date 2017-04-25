@@ -37605,7 +37605,7 @@
 	
 	var _reactRedux = __webpack_require__(182);
 	
-	var _actions = __webpack_require__(270);
+	var _change_tab = __webpack_require__(348);
 	
 	var _MySharingDetails = __webpack_require__(330);
 	
@@ -37627,14 +37627,14 @@
 	      _react2.default.createElement(
 	        'div',
 	        { id: 'sharing-button', className: 'dashboard-button dashboard-active-button', onClick: function onClick() {
-	            return changeTab(props, 'MySharingDetails');
+	            return (0, _change_tab.changeTab)(props, 'MySharingDetails');
 	          } },
 	        'My Sharing'
 	      ),
 	      _react2.default.createElement(
 	        'div',
 	        { id: 'profile-button', className: 'dashboard-button', onClick: function onClick() {
-	            return changeTab(props, 'myProfile');
+	            return (0, _change_tab.changeTab)(props, 'myProfile');
 	          } },
 	        'My Profile'
 	      )
@@ -37648,17 +37648,6 @@
 	    dispatch: state.dispatch,
 	    dashboardState: state.dashboardState
 	  };
-	}
-	
-	function changeTab(props, clickedTab) {
-	  if (props.dashboardState === 'myProfile') {
-	    document.getElementById('sharing-button').classList.add('dashboard-active-button');
-	    document.getElementById('profile-button').classList.remove('dashboard-active-button');
-	  } else {
-	    document.getElementById('sharing-button').classList.remove('dashboard-active-button');
-	    document.getElementById('profile-button').classList.add('dashboard-active-button');
-	  }
-	  props.dispatch((0, _actions.dashboardTab)(clickedTab));
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Dashboard);
@@ -38450,9 +38439,7 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _api = __webpack_require__(328);
-	
-	var _actions = __webpack_require__(270);
+	var _newItem = __webpack_require__(349);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -38486,7 +38473,6 @@
 	      this.setState({
 	        uploadedFile: files[0]
 	      });
-	
 	      this.handleImageUpload(files[0]);
 	    }
 	  }, {
@@ -38526,7 +38512,7 @@
 	        _react2.default.createElement(
 	          'form',
 	          { method: 'post', onSubmit: function onSubmit(e) {
-	              newItem(e, _this3.props);
+	              (0, _newItem.newItem)(e, _this3.props);
 	            } },
 	          _react2.default.createElement(
 	            'label',
@@ -38624,31 +38610,6 @@
 	
 	  return LenderForm;
 	}(_react2.default.Component);
-	
-	function newItem(event, props) {
-	  event.preventDefault(event);
-	  var newItemData = {
-	    item_name: event.target.elements.item_name.value,
-	    category: event.target.elements.category.value,
-	    description: event.target.elements.description.value,
-	    location: event.target.elements.location.value,
-	    image_url: event.target.elements.image_url.value,
-	    owner_id: event.target.elements.user_id.value,
-	    available: true
-	  };
-	  (0, _api.getNewItem)(testCallback, newItemData);
-	  props.dispatch((0, _actions.listNewItem)(newItemData));
-	  props.dispatch((0, _actions.updateListing)());
-	  props.history.push('/dashboard');
-	}
-	
-	function testCallback(err, status) {
-	  if (err) {
-	    console.log(err);
-	  } else {
-	    console.log(status);
-	  }
-	}
 	
 	function mapStateToProps(state) {
 	  return {
@@ -39187,6 +39148,77 @@
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(MyLoanedDetails);
+
+/***/ }),
+/* 347 */,
+/* 348 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.changeTab = undefined;
+	
+	var _actions = __webpack_require__(270);
+	
+	exports.changeTab = changeTab;
+	
+	
+	function changeTab(props, clickedTab) {
+	  if (props.dashboardState === 'myProfile') {
+	    document.getElementById('sharing-button').classList.add('dashboard-active-button');
+	    document.getElementById('profile-button').classList.remove('dashboard-active-button');
+	  } else {
+	    document.getElementById('sharing-button').classList.remove('dashboard-active-button');
+	    document.getElementById('profile-button').classList.add('dashboard-active-button');
+	  }
+	  props.dispatch((0, _actions.dashboardTab)(clickedTab));
+	}
+
+/***/ }),
+/* 349 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.newItem = undefined;
+	
+	var _api = __webpack_require__(328);
+	
+	var _actions = __webpack_require__(270);
+	
+	exports.newItem = newItem;
+	
+	
+	function newItem(event, props) {
+	  event.preventDefault(event);
+	  var newItemData = {
+	    item_name: event.target.elements.item_name.value,
+	    category: event.target.elements.category.value,
+	    description: event.target.elements.description.value,
+	    location: event.target.elements.location.value,
+	    image_url: event.target.elements.image_url.value,
+	    owner_id: event.target.elements.user_id.value,
+	    available: true
+	  };
+	  (0, _api.getNewItem)(testCallback, newItemData);
+	  props.dispatch((0, _actions.listNewItem)(newItemData));
+	  props.dispatch((0, _actions.updateListing)());
+	  props.history.push('/dashboard');
+	}
+	
+	function testCallback(err, status) {
+	  if (err) {
+	    console.log(err);
+	  } else {
+	    console.log(status);
+	  }
+	}
 
 /***/ })
 /******/ ]);
