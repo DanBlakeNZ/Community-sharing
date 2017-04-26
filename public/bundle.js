@@ -24138,31 +24138,31 @@
 	
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 	
-	var _SingleItem = __webpack_require__(338);
+	var _SingleItem = __webpack_require__(339);
 	
 	var _SingleItem2 = _interopRequireDefault(_SingleItem);
 	
-	var _LenderForm = __webpack_require__(339);
+	var _LenderForm = __webpack_require__(340);
 	
 	var _LenderForm2 = _interopRequireDefault(_LenderForm);
 	
-	var _MyItemDetails = __webpack_require__(340);
+	var _MyItemDetails = __webpack_require__(342);
 	
 	var _MyItemDetails2 = _interopRequireDefault(_MyItemDetails);
 	
-	var _List = __webpack_require__(341);
+	var _List = __webpack_require__(343);
 	
 	var _List2 = _interopRequireDefault(_List);
 	
-	var _MyLoanedDetails = __webpack_require__(344);
+	var _MyLoanedDetails = __webpack_require__(346);
 	
 	var _MyLoanedDetails2 = _interopRequireDefault(_MyLoanedDetails);
 	
-	var _TermsConditions = __webpack_require__(345);
+	var _TermsConditions = __webpack_require__(347);
 	
 	var _TermsConditions2 = _interopRequireDefault(_TermsConditions);
 	
-	var _MyBorrowerDetails = __webpack_require__(346);
+	var _MyBorrowerDetails = __webpack_require__(348);
 	
 	var _MyBorrowerDetails2 = _interopRequireDefault(_MyBorrowerDetails);
 	
@@ -27987,7 +27987,7 @@
 	
 	var _reactRouterDom = __webpack_require__(230);
 	
-	var _actions = __webpack_require__(270);
+	var _submitUser = __webpack_require__(349);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -28048,7 +28048,7 @@
 	          _react2.default.createElement(
 	            'button',
 	            { type: 'button', value: 'Login', onClick: function onClick() {
-	                return submitUser(event, _this2.props);
+	                return (0, _submitUser.submitUser)(event, _this2.props);
 	              } },
 	            'Login'
 	          )
@@ -28078,39 +28078,6 @@
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Login);
-	
-	
-	function submitUser(ev, props) {
-	  ev.preventDefault(ev);
-	
-	  document.getElementById('login-error-message').innerHTML = '';
-	
-	  var validEmail = validateEmail(document.getElementById('email-input').value);
-	  var enteredPassword = checkPassword(document.getElementById('password-input').value);
-	
-	  if (validEmail === false) {
-	    document.getElementById('login-error-message').innerHTML = 'The entered email is invalid, please try again.';
-	  }
-	
-	  if (validEmail === true && enteredPassword === false) {
-	    document.getElementById('login-error-message').innerHTML = 'Please enter a password';
-	  }
-	
-	  validEmail && enteredPassword ? props.dispatch((0, _actions.loginUser)(document.getElementById('email-input').value)) : '';
-	}
-	
-	function validateEmail(email) {
-	  var regularExpression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	  return regularExpression.test(email);
-	}
-	
-	function checkPassword(password) {
-	  if (password === '') {
-	    return false;
-	  } else {
-	    return true;
-	  }
-	}
 
 /***/ }),
 /* 270 */
@@ -28121,7 +28088,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.borrowRequest = exports.updateListing = exports.searchForItem = exports.listNewItem = exports.fetchBorrowerById = exports.borrowerDetails = exports.fetchLenderById = exports.lenderDetails = exports.fetchSingleItem = exports.singleItemOrder = exports.fetchLoanedItems = exports.loanedItems = exports.fetchBorrowedItems = exports.borrowedItems = exports.loginUser = exports.loginFailed = exports.userLoggedIn = exports.loggedInUser = exports.displaySingleItem = exports.filteredListings = exports.initialListings = exports.dashboardTab = exports.menuVisable = exports.menuNavigation = undefined;
+	exports.borrowRequest = exports.updateListing = exports.searchForItem = exports.listNewItem = exports.fetchBorrowerById = exports.borrowerDetails = exports.fetchLenderById = exports.lenderDetails = exports.fetchSingleItem = exports.singleItemOrder = exports.fetchLoanedItems = exports.loanedItems = exports.fetchBorrowedItems = exports.borrowedItems = exports.loginUser = exports.loginFailed = exports.userLoggedIn = exports.loggedInUser = exports.displaySingleItem = exports.filteredListings = exports.initialListings = exports.dashboardTab = exports.menuVisable = undefined;
 	
 	var _superagent = __webpack_require__(271);
 	
@@ -28134,20 +28101,7 @@
 	var config = __webpack_require__(286);
 	
 	var urlPath = url.format(config);
-	var currentMenuState = false;
 	var menuVisableState = false;
-	
-	var menuNavigation = exports.menuNavigation = function menuNavigation() {
-	  if (currentMenuState === false) {
-	    currentMenuState = true;
-	  } else {
-	    currentMenuState = false;
-	  }
-	  return {
-	    type: 'MENU_STATE',
-	    menuState: currentMenuState
-	  };
-	};
 	
 	var menuVisable = exports.menuVisable = function menuVisable() {
 	  if (menuVisableState === false) {
@@ -31843,11 +31797,11 @@
 	
 	var _reactRouterDom = __webpack_require__(230);
 	
-	var _actions = __webpack_require__(270);
-	
 	var _NavbarMenu = __webpack_require__(288);
 	
 	var _NavbarMenu2 = _interopRequireDefault(_NavbarMenu);
+	
+	var _openMenu = __webpack_require__(350);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31861,9 +31815,9 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'hambuger-container', onClick: function onClick() {
-	            return openMenu(props);
+	            return (0, _openMenu.openMenu)(props);
 	          } },
-	        props.menuVisableState ? _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }) : _react2.default.createElement('i', { className: 'fa fa-bars', 'aria-hidden': 'true' })
+	        props.menuVisable ? _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }) : _react2.default.createElement('i', { className: 'fa fa-bars', 'aria-hidden': 'true' })
 	      ),
 	      _react2.default.createElement(
 	        _reactRouterDom.HashRouter,
@@ -31896,21 +31850,15 @@
 	        )
 	      )
 	    ),
-	    props.menuState ? _react2.default.createElement(_NavbarMenu2.default, null) : ''
+	    props.menuVisable ? _react2.default.createElement(_NavbarMenu2.default, null) : ''
 	  );
 	};
 	
 	function mapStateToProps(state) {
 	  return {
 	    dispatch: state.dispatch,
-	    menuState: state.menuState,
-	    menuVisableState: state.menuVisableState
+	    menuVisable: state.menuVisableState
 	  };
-	}
-	
-	function openMenu(props) {
-	  props.dispatch((0, _actions.menuNavigation)());
-	  props.dispatch((0, _actions.menuVisable)());
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Navbar);
@@ -31933,7 +31881,7 @@
 	
 	var _reactRouterDom = __webpack_require__(230);
 	
-	var _actions = __webpack_require__(270);
+	var _goToPage = __webpack_require__(351);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31950,7 +31898,7 @@
 	        _react2.default.createElement(
 	          'li',
 	          { className: 'navigation-item', onClick: function onClick() {
-	              return openMenu(props);
+	              return (0, _goToPage.goToPage)(props);
 	            } },
 	          _react2.default.createElement(
 	            _reactRouterDom.Link,
@@ -31961,7 +31909,7 @@
 	        _react2.default.createElement(
 	          'li',
 	          { className: 'navigation-item', onClick: function onClick() {
-	              return openMenu(props);
+	              return (0, _goToPage.goToPage)(props);
 	            } },
 	          _react2.default.createElement(
 	            _reactRouterDom.Link,
@@ -31972,7 +31920,7 @@
 	        _react2.default.createElement(
 	          'li',
 	          { className: 'navigation-item', onClick: function onClick() {
-	              return openMenu(props);
+	              return (0, _goToPage.goToPage)(props);
 	            } },
 	          _react2.default.createElement(
 	            _reactRouterDom.Link,
@@ -31983,7 +31931,7 @@
 	        _react2.default.createElement(
 	          'li',
 	          { className: 'navigation-item', onClick: function onClick() {
-	              return openMenu(props);
+	              return (0, _goToPage.goToPage)(props);
 	            } },
 	          _react2.default.createElement(
 	            _reactRouterDom.Link,
@@ -32001,12 +31949,6 @@
 	    dispatch: state.dispatch,
 	    menuState: state.menuState
 	  };
-	}
-	
-	function openMenu(props) {
-	  props.dispatch((0, _actions.menuNavigation)());
-	  props.dispatch((0, _actions.menuVisable)());
-	  props.dispatch((0, _actions.dashboardTab)('MySharingDetails'));
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(NavbarMenu);
@@ -32035,7 +31977,7 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _api = __webpack_require__(328);
+	var _registerNewUser = __webpack_require__(352);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -32108,7 +32050,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'form',
-	            { onSubmit: registerNewUser, method: 'post' },
+	            { onSubmit: _registerNewUser.registerNewUser, method: 'post' },
 	            _react2.default.createElement(
 	              'label',
 	              null,
@@ -32205,30 +32147,6 @@
 	
 	  return Register;
 	}(_react2.default.Component);
-	
-	function registerNewUser(event) {
-	  event.preventDefault(event);
-	  var formData = {
-	    fname: event.target.elements.fname.value,
-	    lname: event.target.elements.lname.value,
-	    email: event.target.elements.email.value,
-	    address: event.target.elements.address.value,
-	    suburb: event.target.elements.suburb.value,
-	    town_city: event.target.elements.city.value,
-	    postcode: event.target.elements.postcode.value,
-	    phone: event.target.elements.phone.value,
-	    user_image_url: event.target.elements.user_image_url.value
-	  };
-	  (0, _api.registerUser)(testCallback, formData);
-	}
-	
-	function testCallback(err, status) {
-	  if (err) {
-	    console.log(err);
-	  } else {
-	    console.log(status);
-	  }
-	}
 	
 	exports.default = Register;
 
@@ -37605,15 +37523,15 @@
 	
 	var _reactRedux = __webpack_require__(182);
 	
-	var _actions = __webpack_require__(270);
-	
-	var _MySharingDetails = __webpack_require__(330);
+	var _MySharingDetails = __webpack_require__(331);
 	
 	var _MySharingDetails2 = _interopRequireDefault(_MySharingDetails);
 	
-	var _MyProfile = __webpack_require__(337);
+	var _MyProfile = __webpack_require__(338);
 	
 	var _MyProfile2 = _interopRequireDefault(_MyProfile);
+	
+	var _change_tab = __webpack_require__(330);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -37627,14 +37545,14 @@
 	      _react2.default.createElement(
 	        'div',
 	        { id: 'sharing-button', className: 'dashboard-button dashboard-active-button', onClick: function onClick() {
-	            return changeTab(props, 'MySharingDetails');
+	            return (0, _change_tab.changeTab)(props, 'MySharingDetails');
 	          } },
 	        'My Sharing'
 	      ),
 	      _react2.default.createElement(
 	        'div',
 	        { id: 'profile-button', className: 'dashboard-button', onClick: function onClick() {
-	            return changeTab(props, 'myProfile');
+	            return (0, _change_tab.changeTab)(props, 'myProfile');
 	          } },
 	        'My Profile'
 	      )
@@ -37650,6 +37568,24 @@
 	  };
 	}
 	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Dashboard);
+
+/***/ }),
+/* 330 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.changeTab = undefined;
+	
+	var _actions = __webpack_require__(270);
+	
+	exports.changeTab = changeTab;
+	
+	
 	function changeTab(props, clickedTab) {
 	  if (props.dashboardState === 'myProfile') {
 	    document.getElementById('sharing-button').classList.add('dashboard-active-button');
@@ -37660,11 +37596,9 @@
 	  }
 	  props.dispatch((0, _actions.dashboardTab)(clickedTab));
 	}
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Dashboard);
 
 /***/ }),
-/* 330 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37677,15 +37611,15 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _MyItems = __webpack_require__(331);
+	var _MyItems = __webpack_require__(332);
 	
 	var _MyItems2 = _interopRequireDefault(_MyItems);
 	
-	var _MyBorrowedItems = __webpack_require__(333);
+	var _MyBorrowedItems = __webpack_require__(334);
 	
 	var _MyBorrowedItems2 = _interopRequireDefault(_MyBorrowedItems);
 	
-	var _MyLoanedItems = __webpack_require__(335);
+	var _MyLoanedItems = __webpack_require__(336);
 	
 	var _MyLoanedItems2 = _interopRequireDefault(_MyLoanedItems);
 	
@@ -37704,7 +37638,7 @@
 	exports.default = MySharingDetails;
 
 /***/ }),
-/* 331 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37723,7 +37657,7 @@
 	
 	var _reactRedux = __webpack_require__(182);
 	
-	var _MyItemCard = __webpack_require__(332);
+	var _MyItemCard = __webpack_require__(333);
 	
 	var _MyItemCard2 = _interopRequireDefault(_MyItemCard);
 	
@@ -37796,7 +37730,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(MyItems);
 
 /***/ }),
-/* 332 */
+/* 333 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37868,7 +37802,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(MyItemCard);
 
 /***/ }),
-/* 333 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37889,7 +37823,7 @@
 	
 	var _actions = __webpack_require__(270);
 	
-	var _BorrowedItemCard = __webpack_require__(334);
+	var _BorrowedItemCard = __webpack_require__(335);
 	
 	var _BorrowedItemCard2 = _interopRequireDefault(_BorrowedItemCard);
 	
@@ -37968,7 +37902,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(MyBorrowedItems);
 
 /***/ }),
-/* 334 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38033,7 +37967,7 @@
 	exports.default = (0, _reactRedux.connect)()(BorrowedItemCard);
 
 /***/ }),
-/* 335 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38054,7 +37988,7 @@
 	
 	var _actions = __webpack_require__(270);
 	
-	var _LoanedItemCard = __webpack_require__(336);
+	var _LoanedItemCard = __webpack_require__(337);
 	
 	var _LoanedItemCard2 = _interopRequireDefault(_LoanedItemCard);
 	
@@ -38122,7 +38056,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(MyLoanedItems);
 
 /***/ }),
-/* 336 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38194,7 +38128,7 @@
 	exports.default = LoanedItemCard;
 
 /***/ }),
-/* 337 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38284,7 +38218,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(MyProfile);
 
 /***/ }),
-/* 338 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38304,6 +38238,8 @@
 	var _reactRouterDom = __webpack_require__(230);
 	
 	var _actions = __webpack_require__(270);
+	
+	var _sendBorrowRequest = __webpack_require__(353);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -38390,7 +38326,7 @@
 	              _reactRouterDom.Link,
 	              { to: '/dashboard' },
 	              _react2.default.createElement('input', { className: 'request-button', type: 'submit', value: 'Request Item', onClick: function onClick() {
-	                  return sendBorrowRequest(_this2.props);
+	                  return (0, _sendBorrowRequest.sendBorrowRequest)(_this2.props);
 	                } })
 	            )
 	          )
@@ -38401,17 +38337,6 @@
 	
 	  return SingleItem;
 	}(_react2.default.Component);
-	
-	function sendBorrowRequest(props) {
-	  var borrowerRequestDetails = {
-	    borrowers_id: props.loggedInUserDetails.user_id,
-	    lenders_id: props.lenderDetails.user_id,
-	    item_id: props.item.item_id,
-	    pickup: '2017-04-25 14:12:22',
-	    dropoff: '2017-04-30 10:00:00'
-	  };
-	  props.dispatch((0, _actions.borrowRequest)(borrowerRequestDetails));
-	}
 	
 	function mapStateToProps(state) {
 	  return {
@@ -38425,7 +38350,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(SingleItem);
 
 /***/ }),
-/* 339 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38450,9 +38375,7 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _api = __webpack_require__(328);
-	
-	var _actions = __webpack_require__(270);
+	var _newItem = __webpack_require__(341);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -38486,7 +38409,6 @@
 	      this.setState({
 	        uploadedFile: files[0]
 	      });
-	
 	      this.handleImageUpload(files[0]);
 	    }
 	  }, {
@@ -38526,7 +38448,7 @@
 	        _react2.default.createElement(
 	          'form',
 	          { method: 'post', onSubmit: function onSubmit(e) {
-	              newItem(e, _this3.props);
+	              (0, _newItem.newItem)(e, _this3.props);
 	            } },
 	          _react2.default.createElement(
 	            'label',
@@ -38625,6 +38547,32 @@
 	  return LenderForm;
 	}(_react2.default.Component);
 	
+	function mapStateToProps(state) {
+	  return {
+	    user_id: state.loggedInUserDetails.user_id
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(LenderForm);
+
+/***/ }),
+/* 341 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.newItem = undefined;
+	
+	var _api = __webpack_require__(328);
+	
+	var _actions = __webpack_require__(270);
+	
+	exports.newItem = newItem;
+	
+	
 	function newItem(event, props) {
 	  event.preventDefault(event);
 	  var newItemData = {
@@ -38636,30 +38584,22 @@
 	    owner_id: event.target.elements.user_id.value,
 	    available: true
 	  };
-	  (0, _api.getNewItem)(testCallback, newItemData);
+	  (0, _api.getNewItem)(newItemCallback, newItemData);
 	  props.dispatch((0, _actions.listNewItem)(newItemData));
 	  props.dispatch((0, _actions.updateListing)());
 	  props.history.push('/dashboard');
 	}
 	
-	function testCallback(err, status) {
+	function newItemCallback(err, status) {
 	  if (err) {
 	    console.log(err);
 	  } else {
 	    console.log(status);
 	  }
 	}
-	
-	function mapStateToProps(state) {
-	  return {
-	    user_id: state.loggedInUserDetails.user_id
-	  };
-	}
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(LenderForm);
 
 /***/ }),
-/* 340 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38757,7 +38697,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(MyItemDetails);
 
 /***/ }),
-/* 341 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38774,11 +38714,11 @@
 	
 	var _reactRedux = __webpack_require__(182);
 	
-	var _BackToTop = __webpack_require__(342);
+	var _BackToTop = __webpack_require__(344);
 	
 	var _BackToTop2 = _interopRequireDefault(_BackToTop);
 	
-	var _ListAllItems = __webpack_require__(343);
+	var _ListAllItems = __webpack_require__(345);
 	
 	var _ListAllItems2 = _interopRequireDefault(_ListAllItems);
 	
@@ -38875,7 +38815,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(List);
 
 /***/ }),
-/* 342 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38907,7 +38847,7 @@
 	exports.default = BackToTop;
 
 /***/ }),
-/* 343 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38972,7 +38912,7 @@
 	exports.default = ListAllItems;
 
 /***/ }),
-/* 344 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39052,7 +38992,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(MyBorrowedDetails);
 
 /***/ }),
-/* 345 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39110,7 +39050,7 @@
 	exports.default = TermsConditions;
 
 /***/ }),
-/* 346 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -39187,6 +39127,162 @@
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(MyLoanedDetails);
+
+/***/ }),
+/* 349 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.submitUser = undefined;
+	
+	var _actions = __webpack_require__(270);
+	
+	exports.submitUser = submitUser;
+	
+	
+	function submitUser(ev, props) {
+	  ev.preventDefault(ev);
+	
+	  document.getElementById('login-error-message').innerHTML = '';
+	
+	  var validEmail = validateEmail(document.getElementById('email-input').value);
+	  var enteredPassword = checkPassword(document.getElementById('password-input').value);
+	
+	  if (validEmail === false) {
+	    document.getElementById('login-error-message').innerHTML = 'The entered email is invalid, please try again.';
+	  }
+	
+	  if (validEmail === true && enteredPassword === false) {
+	    document.getElementById('login-error-message').innerHTML = 'Please enter a password';
+	  }
+	
+	  validEmail && enteredPassword ? props.dispatch((0, _actions.loginUser)(document.getElementById('email-input').value)) : '';
+	}
+	
+	function validateEmail(email) {
+	  var regularExpression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	  return regularExpression.test(email);
+	}
+	
+	function checkPassword(password) {
+	  if (password === '') {
+	    return false;
+	  } else {
+	    return true;
+	  }
+	}
+
+/***/ }),
+/* 350 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.openMenu = undefined;
+	
+	var _actions = __webpack_require__(270);
+	
+	exports.openMenu = openMenu;
+	
+	
+	function openMenu(props) {
+	  props.dispatch((0, _actions.menuVisable)());
+	}
+
+/***/ }),
+/* 351 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.goToPage = undefined;
+	
+	var _actions = __webpack_require__(270);
+	
+	exports.goToPage = goToPage;
+	
+	
+	function goToPage(props) {
+	  props.dispatch((0, _actions.menuVisable)());
+	  props.dispatch((0, _actions.dashboardTab)('MySharingDetails'));
+	}
+
+/***/ }),
+/* 352 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.registerNewUser = undefined;
+	
+	var _api = __webpack_require__(328);
+	
+	exports.registerNewUser = registerNewUser;
+	
+	
+	function registerNewUser(event) {
+	  event.preventDefault(event);
+	  var formData = {
+	    fname: event.target.elements.fname.value,
+	    lname: event.target.elements.lname.value,
+	    email: event.target.elements.email.value,
+	    address: event.target.elements.address.value,
+	    suburb: event.target.elements.suburb.value,
+	    town_city: event.target.elements.city.value,
+	    postcode: event.target.elements.postcode.value,
+	    phone: event.target.elements.phone.value,
+	    user_image_url: event.target.elements.user_image_url.value
+	  };
+	  (0, _api.registerUser)(registerCallback, formData);
+	}
+	
+	function registerCallback(err, status) {
+	  if (err) {
+	    console.log(err);
+	  } else {
+	    console.log(status);
+	  }
+	}
+
+/***/ }),
+/* 353 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.sendBorrowRequest = undefined;
+	
+	var _actions = __webpack_require__(270);
+	
+	exports.sendBorrowRequest = sendBorrowRequest;
+	
+	
+	function sendBorrowRequest(props) {
+	  var borrowerRequestDetails = {
+	    borrowers_id: props.loggedInUserDetails.user_id,
+	    lenders_id: props.lenderDetails.user_id,
+	    item_id: props.item.item_id,
+	    pickup: '2017-04-25 14:12:22',
+	    dropoff: '2017-04-30 10:00:00'
+	  };
+	  props.dispatch((0, _actions.borrowRequest)(borrowerRequestDetails));
+	}
 
 /***/ })
 /******/ ]);

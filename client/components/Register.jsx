@@ -2,10 +2,10 @@ import React from 'react'
 import Dropzone from 'react-dropzone'
 import request from 'superagent'
 
+import { registerNewUser } from './component_functions/registerNewUser'
+
 const CLOUDINARY_UPLOAD_PRESET = 'm7lw5icy'
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/hpyyiawap/image/upload'
-
-import { registerUser } from '../api'
 
 class Register extends React.Component {
   constructor (props) {
@@ -73,14 +73,11 @@ class Register extends React.Component {
               </Dropzone>
 
               <div className='imageContainer'>
-                { this.state.uploadedFileCloudinaryUrl === ''
-                ? null
-                : (
+                { this.state.uploadedFileCloudinaryUrl === '' ? null : (
                   <div>
                     <img className='uploadImage' src={this.state.uploadedFileCloudinaryUrl} />
                   </div>
-                  )
-                }
+                )}
               </div>
             </div>
             <input type='submit' className='itemListingSubmit' value='Register' />
@@ -88,30 +85,6 @@ class Register extends React.Component {
         </div>
       </div>
     )
-  }
-}
-
-function registerNewUser (event) {
-  event.preventDefault(event)
-  var formData = {
-    fname: event.target.elements.fname.value,
-    lname: event.target.elements.lname.value,
-    email: event.target.elements.email.value,
-    address: event.target.elements.address.value,
-    suburb: event.target.elements.suburb.value,
-    town_city: event.target.elements.city.value,
-    postcode: event.target.elements.postcode.value,
-    phone: event.target.elements.phone.value,
-    user_image_url: event.target.elements.user_image_url.value
-  }
-  registerUser(testCallback, formData)
-}
-
-function testCallback (err, status) {
-  if (err) {
-    console.log(err)
-  } else {
-    console.log(status)
   }
 }
 
