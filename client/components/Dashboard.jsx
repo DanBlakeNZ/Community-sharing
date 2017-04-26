@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { changeTab } from './component_functions/change_tab'
-
 import MySharingDetails from '../containers/MySharingDetails.jsx'
 import MyProfile from '../containers/MyProfile.jsx'
+
+import { changeTab } from './component_functions/change_tab'
 
 let Dashboard = (props) => (
   <div className='dashboard-container'>

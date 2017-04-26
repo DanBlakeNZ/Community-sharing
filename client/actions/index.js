@@ -4,20 +4,7 @@ const url = require('url')
 const config = require('../../config')
 
 var urlPath = url.format(config)
-var currentMenuState = false
 var menuVisableState = false
-
-export const menuNavigation = () => {
-  if (currentMenuState === false) {
-    currentMenuState = true
-  } else {
-    currentMenuState = false
-  }
-  return {
-    type: 'MENU_STATE',
-    menuState: currentMenuState
-  }
-}
 
 export const menuVisable = () => {
   if (menuVisableState === false) {

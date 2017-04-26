@@ -15,13 +15,13 @@ function newItem (event, props) {
     owner_id: event.target.elements.user_id.value,
     available: true
   }
-  getNewItem(testCallback, newItemData)
+  getNewItem(newItemCallback, newItemData)
   props.dispatch(listNewItem(newItemData))
   props.dispatch(updateListing())
   props.history.push('/dashboard')
 }
 
-function testCallback (err, status) {
+function newItemCallback (err, status) {
   if (err) {
     console.log(err)
   } else {
