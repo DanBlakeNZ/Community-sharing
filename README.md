@@ -1,6 +1,6 @@
 # Community-Sharing
 
-You'll fins us online @ https://community-sharing.herokuapp.com/#/
+You'll find us online @ https://community-sharing.herokuapp.com/#/
 
 ## Getting started
 
@@ -194,10 +194,10 @@ Dealing with pull request by making sure its pushed to the right branch and fixi
 
 Roles           | Name:
 ----------------|--------
-Project Manager | Pou
-Minister of EE  | Dan
-Product Owner   | Jon
-Git Master      | Todd
+Project Manager | Jon
+Minister of EE  | Todd
+Product Owner   | Dan
+Git Master      | Pou
 
 ## Conflict Management
 - If its product related lets re-group and seek clarification.
